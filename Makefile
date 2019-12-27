@@ -1,7 +1,7 @@
 PREFIX  ?= /usr/local
 DESTDIR ?=
 
-INITDDIR ?= $(DESDIR)$(PREFIX)/etc/init.d
+INITDDIR ?= $(DESTDIR)$(PREFIX)/etc/init.d
 
 INSTALL ?= install -D -m755
 RM      ?= rm -f
