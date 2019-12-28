@@ -8,8 +8,8 @@ RM      ?= rm -f
 
 .PHONY: install
 install: 
-	$(INSTALL) backlight-restorer $(INITDDIR)/backlight-restorer
+	$(INSTALL) save-backlight $(INITDDIR)/save-backlight
 
 .PHONY: uninstall
 uninstall: 
-	$(RM) $(INITDDIR)/backlight-restorer
+	$(RM) $(INITDDIR)/save-backlight

@@ -1,4 +1,4 @@
-# backlight-openrc
+# save-backlight
 
 This script is an **OpenRC** service aiming to restore the last brightness level on reboot. It is a fork of the [antipatico's project](https://github.com/antipatico/backlight-openrc).
 
@@ -7,10 +7,10 @@ This script is an **OpenRC** service aiming to restore the last brightness level
 ### On Gentoo-based distributions
 
 1. Add the [beatussum-overlay](https://github.com/beatussum/beatussum-overlay).
-2. emerge the _sys-apps/backlight-restorer_ package.
+2. emerge the _sys-apps/save-backlight_ package.
 3. Add service to the default runlevel but **do not** start it:
 ```bash
-rc-update add backlight-restorer default
+rc-update add save-backlight boot
 ```
 
 ### On others distribution

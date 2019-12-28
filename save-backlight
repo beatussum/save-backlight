@@ -18,7 +18,7 @@
 
 description="An OpenRC service for restoring the last brightness level on reboot"
 
-cache_dir="/var/cache/backlight-restorer"
+cache_dir="/var/cache/save-backlight"
 
 start() {
 	ebegin "Restoring the screen brightness"
