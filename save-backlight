@@ -18,7 +18,7 @@
 
 description="An OpenRC service for restoring the last brightness level on reboot"
 
-cache_dir="/var/cache/save-backlight"
+readonly cache_dir="/var/cache/save-backlight"
 
 start() {
 	ebegin "Restoring the screen brightness"
@@ -28,17 +28,19 @@ start() {
 	for card in $(basename /sys/class/backlight/*); do
 		if [ -e "${cache_dir}/${card}" ]; then
 			local -r blight=$(cat "${cache_dir}/${card}")
+
+			if [ ${blight} -ne 0 ]; then
+				echo ${blight} > "/sys/class/backlight/${card}/brightness"
+			else
+				ewarn "Setting the brightness to zero would cause the"
+				ewarn "screen to turn off (skipping)"
+			fi
+		else
+			ewarn "Cache is empty (skipping)"
 		fi
 
-		if [ ${blight:=0} -ne 0 ]; then
-			echo ${blight} > "/sys/class/backlight/${card}/brightness"
-		fi
-
-		sts=$?
-		test ${sts} -eq 0 || break
+		test $? -eq 0 || eerror "Cannot restore the brightness of ${card}"
 	done
-
-	eend ${sts} "Cannot restore the brightness of ${card}"
 }
 
 stop() {
@@ -47,12 +49,9 @@ stop() {
 	checkpath -D -o "root:root" "${cache_dir}"
 
 	for card in $(basename /sys/class/backlight/*); do
-		cp "/sys/class/backlight/${card}/brightness" \
-			"${cache_dir}/${card}"
+		cat "/sys/class/backlight/${card}/brightness" \
+			> "${cache_dir}/${card}"
 
-		sts=$?
-		test ${sts} -eq 0 || break
+		test $? -eq 0 || eerror $? "Cannot save the brightness of ${card}"
 	done
-
-	eend ${sts} "Cannot save the brightness of ${card}"
 }

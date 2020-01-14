@@ -8,11 +8,11 @@ This script is an **OpenRC** service aiming to restore the last brightness level
 
 1. Add the [beatussum-overlay](https://github.com/beatussum/beatussum-overlay).
 2. emerge the _sys-apps/save-backlight_ package.
-3. Add service to the default runlevel but **do not** start it:
+3. Add service to the _default_ runlevel:
 ```bash
-rc-update add save-backlight boot
+rc-update add save-backlight default
 ```
 
 ### On others distribution
 
-Just use `make install`, and `make install` to uninstall it.
+Just use `make install` and `make uninstall`.
