@@ -27,7 +27,7 @@ start() {
 
 	for card in $(basename /sys/class/backlight/*); do
 		if [ -e "${CACHE_DIR}/${card}" ]; then
-			local -r blight=$(cat "${CACHE_DIR}/${card}")
+			readonly blight=$(cat "${CACHE_DIR}/${card}")
 
 			if [ ${blight} -ne 0 ]; then
 				echo ${blight} > "/sys/class/backlight/${card}/brightness"
