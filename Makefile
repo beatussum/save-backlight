@@ -14,10 +14,8 @@
 # this program. If not, see <https://www.gnu.org/licenses/>.
 
 
-PREFIX  ?= /usr/local
-DESTDIR ?=
-
-INITDDIR ?= $(DESTDIR)$(PREFIX)/etc/init.d
+DESTDIR  ?=
+INITDDIR ?= $(DESTDIR)/etc/init.d
 
 INSTALL ?= install -D -m755
 RM      ?= rm -f
