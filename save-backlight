@@ -26,7 +26,7 @@ start()
 
 	checkpath -D -o "root:root" "${CACHE_DIR}"
 
-	for card in $(basename /sys/class/backlight/*); do
+	for card in $(ls /sys/class/backlight/); do
 		card_file="${CACHE_DIR}/${card}"
 
 		if [[ -e "${card_file}" ]]; then
@@ -36,12 +36,12 @@ start()
 				echo ${blight} > "/sys/class/backlight/${card}/brightness"
 			else
 				ewarn "Setting the brightness to zero would cause the"
-				ewarn "screen to turn off (skipping)"
+				ewarn "screen to turn off (skipping ${card})"
 			fi
 
 			unset blight
 		else
-			ewarn "Cache is empty (skipping)"
+			ewarn "Cache is empty (skipping ${card})"
 		fi
 
 		eend $? "Cannot restore the brightness of ${card}"
@@ -56,7 +56,7 @@ stop()
 
 	checkpath -D -o "root:root" "${CACHE_DIR}"
 
-	for card in $(basename /sys/class/backlight/*); do
+	for card in $(ls /sys/class/backlight/); do
 		cat "/sys/class/backlight/${card}/brightness" \
 			> "${CACHE_DIR}/${card}"
 
